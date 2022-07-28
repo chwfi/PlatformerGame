@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
-    bool isJumping = false;
+    //bool isJumping = false;
     public float jumpPower;
     Rigidbody2D rigid;
     
@@ -12,12 +12,12 @@ public class PlayerJump : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        if (Input.GetButtonDown("Jump"))
+        /*if (Input.GetButtonDown("Jump"))
         {
             isJumping = true;
             anim.SetTrigger("doJump");
             anim.SetBool("isJumping", true);
-        }
+        }*/
         
     }
     private void Update()
