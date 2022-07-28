@@ -1,49 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerJump : MonoBehaviour
 {
-    [SerializeField] float jumpPower = 1f;
-    Rigidbody2D rigid;
     bool isJumping = false;
+    public float jumpPower;
+    Rigidbody2D rigid;
+    
     Animator anim;
-
-    private void Start()
+    void Awake()
     {
-        rigid = gameObject.GetComponent<Rigidbody2D>();
-        anim = gameObject.GetComponent<Animator>();
-    }
-    private void Update()
-    {
+        anim = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
         if (Input.GetButtonDown("Jump"))
         {
             isJumping = true;
             anim.SetTrigger("doJump");
             anim.SetBool("isJumping", true);
         }
+        
+    }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            anim.SetBool("isJumping", true);
+        }
     }
     private void FixedUpdate()
     {
-        Jump();
-    }
-    void Jump()
-    {
-        if (!isJumping)
+        
+        if (rigid.velocity.y < 0)
         {
-            return;
-        }
-        rigid.velocity = Vector2.zero;
-        Vector2 jumpVelocity = new Vector2(0, jumpPower);
-        rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
-
-        isJumping = false;
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.layer == 8 && rigid.velocity.y < 0)
-        {
-            anim.SetBool("isJumping", false);
+            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1);
+            if (rayHit.collider != null)
+            {
+                if (rayHit.distance < 0.5f)
+                {
+                    anim.SetBool("isJumping", false);
+                }
+            }
         }
     }
+    
+    
+    
 }
