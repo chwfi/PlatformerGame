@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7272257736154975914}
   - component: {fileID: 8423196072284628455}
   - component: {fileID: 5804636492025894008}
-  - component: {fileID: 4155081397212519472}
+  - component: {fileID: 384365190472185835}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpSpeed: 10
---- !u!114 &4155081397212519472
+--- !u!114 &384365190472185835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,3 +203,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b503f3386a80487479c5bf39f4f56ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpPower: 0

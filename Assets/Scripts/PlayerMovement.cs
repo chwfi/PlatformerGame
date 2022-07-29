@@ -8,41 +8,42 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D rigid;
     [SerializeField] float speed = 5f;
-    
+    [SerializeField] float jumpSpeed = 5;
     Animator anim;
-    
+    CapsuleCollider2D coll;
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        coll = GetComponent<CapsuleCollider2D>();
     }
     private void Update()
     {
         Run();
         FlipSprite();
-        
+
     }
 
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        
+
     }
-    /*void OnJump(InputValue value)
+    void OnJump(InputValue value)
     {
-        
+        if (!coll.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
         if (value.isPressed)
         {
-            
-            rigid.velocity += new Vector2 (0f, jumpSpeed);
-            
-            
-            
+
+            rigid.velocity += new Vector2(0f, jumpSpeed);
+
+
+
         }
-        
-    }*/
-    
+
+    }
+
     void Run()
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * speed, rigid.velocity.y);
@@ -58,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector2(Mathf.Sign(rigid.velocity.x), 1f);
         }
-        
-        
+
+
     }
 
-} 
+}
