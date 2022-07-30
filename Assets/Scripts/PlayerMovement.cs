@@ -5,18 +5,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     Vector2 moveInput;
     Rigidbody2D rigid;
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpSpeed = 5;
     Animator anim;
     CapsuleCollider2D coll;
+    BoxCollider2D feetColl;
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();
+        feetColl = GetComponent<BoxCollider2D>();
+        
     }
     private void Update()
     {

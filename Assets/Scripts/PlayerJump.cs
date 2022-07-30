@@ -29,29 +29,17 @@ public class PlayerJump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            JUMP_J();
-            jump = true;
-            
+            //JUMP_J();
+            //jump = true;
+            anim.SetBool("isJumping", true);
         }
     }
-
-    private void FixedUpdate()
+    //점프애니메이션
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Landing Platform
-        if (rigid.velocity.y < 0)
+        if (collision.gameObject.tag == "Ground")
         {
-
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1);
-            if (rayHit.collider.tag == "Ground")
-            {
-
-                if (rayHit.distance < 3f)
-                {
-
-                    anim.SetBool("isJumping", false);
-                }
-            }
+            anim.SetBool("isJumping", false);
         }
     }
     //발판 통과 로직
@@ -63,4 +51,6 @@ public class PlayerJump : MonoBehaviour
     {
         GetComponent<CapsuleCollider2D>().isTrigger = false;
     }
+
+    
 }
