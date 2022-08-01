@@ -12,22 +12,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 5;
     Animator anim;
     CapsuleCollider2D coll;
-    BoxCollider2D feetColl;
-
+    
+    
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider2D>();
-        feetColl = GetComponent<BoxCollider2D>();
+        
         
     }
     private void Update()
     {
         Run();
         FlipSprite();
-
+        
     }
+    
 
     void OnMove(InputValue value)
     {
@@ -66,5 +67,5 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
+    
 }
