@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
     private void Attacking()
     {
         bool isAttackKey = Input.GetKeyDown(_attackKey);
-
+        
         if (isAttackKey == true)
         {
             _playerAttack.Attack();
