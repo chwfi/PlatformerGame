@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Move Property")]
-    private KeyCode _leftKey = KeyCode.LeftArrow;
-    private KeyCode _rightKey = KeyCode.RightArrow;
+    private KeyCode _leftKey = KeyCode.A;
+    private KeyCode _rightKey = KeyCode.D;
     [SerializeField] private float _speed = 5;
 
     [Header("Jump Property")]
-    private KeyCode _jumpKey = KeyCode.C;
+    private KeyCode _jumpKey = KeyCode.Space;
     [SerializeField] private float _jumpPower = 12;
     private float _checkRadius = 0.05f;
     [SerializeField] private LayerMask _layerMask;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool _isGround;
 
     [Header("Dash Property")]
-    private KeyCode _dashKey = KeyCode.Z;
+    private KeyCode _dashKey = KeyCode.LeftShift;
     private bool _canDash = true;
     private bool _isDashing = false;
     [SerializeField] private float _dashIngPower = 20f;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashingCooldown = 1f;
 
     [Header("Attack Property")]
-    private KeyCode _attackKey = KeyCode.X;
+    private KeyCode _attackKey = KeyCode.S;
     private PlayerAttack _playerAttack;
     private bool _isAttacking;
     public bool IsAttacking
