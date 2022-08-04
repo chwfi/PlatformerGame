@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    private Rigidbody2D _rigid;
+    [SerializeField] private Rigidbody2D _rigid;
     private Animator _animator;
     private Ghost _ghost;
 
@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Move Property")]
-    private KeyCode _leftKey = KeyCode.A;
-    private KeyCode _rightKey = KeyCode.D;
+    private KeyCode _leftKey = KeyCode.LeftArrow;
+    private KeyCode _rightKey = KeyCode.RightArrow;
     [SerializeField] private float _speed = 5;
 
     [Header("Jump Property")]
-    private KeyCode _jumpKey = KeyCode.Space;
+    private KeyCode _jumpKey = KeyCode.C;
     [SerializeField] private float _jumpPower = 12;
     private float _checkRadius = 0.05f;
     [SerializeField] private LayerMask _layerMask;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool _isGround;
 
     [Header("Dash Property")]
-    private KeyCode _dashKey = KeyCode.LeftShift;
+    private KeyCode _dashKey = KeyCode.Z;
     private bool _canDash = true;
     private bool _isDashing = false;
     [SerializeField] private float _dashIngPower = 20f;
@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashingCooldown = 1f;
 
     [Header("Attack Property")]
-    private KeyCode _attackKey = KeyCode.S;
+    private KeyCode _attackKey = KeyCode.X;
+    private KeyCode _heavyattackKey = KeyCode.S;
     private PlayerAttack _playerAttack;
     private bool _isAttacking;
     public bool IsAttacking
@@ -96,7 +97,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        
         Attacking();
+
+        HeavyAttacking();
 
         Jumping();
 
@@ -107,13 +111,26 @@ public class PlayerController : MonoBehaviour
     private void Attacking()
     {
         bool isAttackKey = Input.GetKeyDown(_attackKey);
-        
+
         if (isAttackKey == true)
         {
             _playerAttack.Attack();
         }
     }
+    
+    private void HeavyAttacking()
+    {
+        bool isHeavyAttackKey = Input.GetKeyDown(_heavyattackKey);
 
+        if (isHeavyAttackKey == true)
+        {
+            _playerAttack.HeavyAttack();
+        }
+        while (isHeavyAttackKey == true)
+        {
+            _speed = 0;
+        }
+    }
 
     private void Jumping()
     {
@@ -127,14 +144,16 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat("yVelocity", _rigid.velocity.y);
 
-        if (_isGround == true && isJumpkey == true && _jumpCurrentCount > 0)
+        if (_isGround == true && isJumpkey == true && _jumpCurrentCount > -1)
         {
             _animator.SetBool("isJump", true);
+            _animator.SetTrigger("Jump");
             _rigid.velocity = Vector2.up * _jumpPower;
         }
         if (_isGround == false && isJumpkey == true && _jumpCurrentCount > 0)
         {
             _animator.SetBool("isJump", true);
+            _animator.SetTrigger("Jump");
             _rigid.velocity = Vector2.up * _jumpPower;
         }
 
@@ -152,9 +171,9 @@ public class PlayerController : MonoBehaviour
 
     private void Dashing()
     {
-        bool isDashKey = Input.GetKeyDown(_dashKey);
+        //bool isDashKey = Input.GetKeyDown(_dashKey);
 
-        if (isDashKey == true && _canDash == true)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash == true)
         {
             StartCoroutine(Dash());
         }
@@ -175,6 +194,7 @@ public class PlayerController : MonoBehaviour
         _ghost.MakeGhost = false;
         yield return new WaitForSeconds(_dashingCooldown);
         _canDash = true;
+
     }
 
     public void TakeDamage(float damage)
@@ -189,5 +209,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-
 

@@ -20,20 +20,33 @@ public class PlayerAttack : MonoBehaviour
     private Vector2 _attack2Size = new Vector2(2.5f, 0f);
     private Vector2 _attack3Size = new Vector2(3.4f, 0f);
 
+    
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
 
         _attackPos = transform.Find("AttackPos");
     }
+    
 
+    
+        
+    public void HeavyAttack()
+    {
+        bool isHeavyAttack = _animator.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack");
+        _animator.SetTrigger("HeavyAttack");
+    }
+    
+    
     public void Attack()
     {
+        bool isHeavyAttack = _animator.GetCurrentAnimatorStateInfo(0).IsName("HeavyAttack");
         bool isAttack1 = _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_01");
         bool isAttack2 = _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_02");
         bool isAttack3 = _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_03");
-
-        if (isAttack1 == false && isAttack2 == false && isAttack3 == false)
+        
+        if (isAttack1 == false && isAttack2 == false && isAttack3 == false && isHeavyAttack == false)
         {
             _animator.SetTrigger("attack");
             _animator.SetBool("attack_2", false);
@@ -52,6 +65,7 @@ public class PlayerAttack : MonoBehaviour
         {
             _animator.SetBool("attack_3", true);
         }
+        
     }
 
     public void Attack_1()
@@ -82,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
     void Attacking()
     {
         Collider2D[] enemies = Physics2D.OverlapBoxAll(_attackPos.transform.position, _attackSize, 0, _enemyLayerMask);
-
+        
         foreach (Collider2D enemy in enemies)
         {
             //enemy.GetComponent<Enemy>().TakeDamage(_damage);

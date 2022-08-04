@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &38549063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38549064}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &38549064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38549063}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24, y: -2.24, z: 1661.8721}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5898880757469748404}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &570275310743173345
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570275310743173345}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5362949, y: -0.09716964, z: 0.0724516}
+  m_LocalPosition: {x: 0.52, y: -1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,7 +79,6 @@ GameObject:
   - component: {fileID: 1621270141}
   - component: {fileID: 1621270142}
   - component: {fileID: 1621270143}
-  - component: {fileID: 1621270145}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -70,6 +100,7 @@ Transform:
   m_Children:
   - {fileID: 4644313278285969373}
   - {fileID: 251838351283257651}
+  - {fileID: 38549064}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -119,7 +150,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 3.5555556, y: 3.5555556}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -200,7 +231,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.5555556, y: 3.5555556}
-    newSize: {x: 0.64, y: 0.64}
+    newSize: {x: 3.5555556, y: 3.5555556}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -220,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49035678e805da442a91b59e23e921d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigid: {fileID: 7272257736154975914}
   hp: 20
   _speed: 5
   _jumpPower: 10
@@ -227,7 +259,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _dashIngPower: 20
-  _dashingTime: 0.2
+  _dashingTime: 0.3
   _dashingCooldown: 1
 --- !u!114 &1621270142
 MonoBehaviour:
@@ -242,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ghostDelay: 0.03
-  _ghost: {fileID: 5898880757469748406}
+  _ghost: {fileID: 5898880757469748406, guid: 121284779ffd9554dac70bb86a053b4c, type: 3}
   _isMakeGhost: 0
 --- !u!114 &1621270143
 MonoBehaviour:
@@ -261,19 +293,6 @@ MonoBehaviour:
     m_Bits: 4096
   _animator: {fileID: 5898880757469748411}
   _damage: 3
---- !u!114 &1621270145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5898880757469748406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69633b95ad55e304c8eb4ce87ed87d5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _platformerCollider: {fileID: 0}
 --- !u!1001 &3492389338122191228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,11 +310,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8071752116013627041, guid: 11b5f8b2802e75842a1ce90499ce8397, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.04
+      value: -0.049
       objectReference: {fileID: 0}
     - target: {fileID: 8071752116013627041, guid: 11b5f8b2802e75842a1ce90499ce8397, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.77
+      value: -1.779
       objectReference: {fileID: 0}
     - target: {fileID: 8071752116013627041, guid: 11b5f8b2802e75842a1ce90499ce8397, type: 3}
       propertyPath: m_LocalPosition.z
