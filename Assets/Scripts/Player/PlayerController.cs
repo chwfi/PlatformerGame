@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack Property")]
     private KeyCode _attackKey = KeyCode.X;
-    private KeyCode _heavyattackKey = KeyCode.S;
     private PlayerAttack _playerAttack;
     private bool _isAttacking;
     public bool IsAttacking
@@ -49,6 +48,12 @@ public class PlayerController : MonoBehaviour
         set => _isAttacking = value;
     }
 
+    [Header("Heavy Attack Property")]
+    private KeyCode _heavyattackKey = KeyCode.S;
+    private bool _canHevAttack = true;
+    private bool _isHevAttack = false;
+    [SerializeField] private float _hevattackCool = 1f;
+    [SerializeField] private float _hevattackTime = 0.9f;
 
     private void Start()
     {
@@ -58,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
         _playerAttack = GetComponent<PlayerAttack>();
         _pos = transform.Find("Pos");
+        
     }
 
 
@@ -73,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Moving()
     {
+        
         bool isLeftKey = Input.GetKey(_leftKey);
         bool isRightKey = Input.GetKey(_rightKey);
 
@@ -97,43 +104,53 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
-        Attacking();
 
-        HeavyAttacking();
+
+
+        StartCoroutine(Attacking1());
 
         Jumping();
 
         Dashing();
+
+        StartCoroutine(HeavyAttacking1());
     }
 
-
-    private void Attacking()
+    IEnumerator HeavyAttacking1()
+    {
+        bool isHeavyAttackKey = Input.GetKeyDown(_heavyattackKey);
+        if (isHeavyAttackKey == true && _canHevAttack)
+        {
+            _canHevAttack = false;
+            _isHevAttack = true;
+            _playerAttack.HeavyAttack();
+            _speed = 0f;
+            yield return new WaitForSeconds(_hevattackTime);
+            _speed = 5f;
+            _isHevAttack = false;
+            yield return new WaitForSeconds(_hevattackCool);
+            _canHevAttack = true;
+        }
+    }
+    
+    IEnumerator Attacking1()
     {
         bool isAttackKey = Input.GetKeyDown(_attackKey);
 
         if (isAttackKey == true)
         {
             _playerAttack.Attack();
+            _speed = 2.3f;
+            yield return new WaitForSeconds(.5f);
+            _speed = 5;
         }
+        
     }
     
-    private void HeavyAttacking()
-    {
-        bool isHeavyAttackKey = Input.GetKeyDown(_heavyattackKey);
-
-        if (isHeavyAttackKey == true)
-        {
-            _playerAttack.HeavyAttack();
-        }
-        while (isHeavyAttackKey == true)
-        {
-            _speed = 0;
-        }
-    }
 
     private void Jumping()
     {
+        
         if (_isDashing == true)
         {
             return;
@@ -171,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
     private void Dashing()
     {
-        //bool isDashKey = Input.GetKeyDown(_dashKey);
+        bool isDashKey = Input.GetKeyDown(_dashKey);
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash == true)
         {
