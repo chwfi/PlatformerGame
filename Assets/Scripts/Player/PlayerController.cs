@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         if (isAttackKey == true)
         {
             _playerAttack.Attack();
-            _speed = 2.3f;
+            _speed = .5f;
             yield return new WaitForSeconds(.5f);
             _speed = 5;
         }
@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    /*public void TakeDamage(float damage)
     {
         hp -= damage;
 
@@ -224,6 +224,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Death");
         }
-    }
+    }*/
 }
 
